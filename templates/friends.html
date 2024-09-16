@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Muokkaa profiilia{% endblock %}
+{% block content %}
+{% if session.username %}
+<h1>Kaverit</h1>
+
+<p>Kaikki kaverit:</p>
+<ul>
+    {% for friend in all_friends %}
+    <li>{{ friend }}</li>
+    {% endfor %}
+</ul>
+
+<p>Uusia kaveripyyntöjä:</p>
+<ul>
+    {% for request in friend_requests %}
+    <li>
+        {{ request.username }}
+        <form action="/profile/friends" method="POST" style="display:inline;">
+            <input type="hidden" name="user_id" value="{{ request.user1 }}">
+            <input type="submit" value="Hyväksy">
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="/profile/{{ session.username }}">Takaisin profiiliin</a>
+{% else %}
+<p>Kirjaudu sisään tai luo tunnus vieraillaksesi profiileissa.</p>
+{% endif %}
+{% endblock %}

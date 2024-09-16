@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="../static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+
+    <title>Sovellus - {% block title %}{% endblock %}</title>
+    <h1>Sovellus</h1>
+    <a href="/">Etusivu</a>
+    <hr>
+    {% if session.username %}
+    <p style="text-align: right;"> Olet kirjautunut nimellä {{ session.username }} <br>
+        <a href="/logout">Kirjaudu ulos</a> <a href="/profile/{{session.username}}">Profiili</a>
+    </p>
+
+    {% endif %}
+    {% block content %}{% endblock %}
+
+
+
+
+</body>

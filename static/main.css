@@ -1,0 +1,9 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.bio-text {
+    white-space: pre-wrap;
+}

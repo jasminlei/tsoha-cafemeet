@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+{% if not session.username %}
+<br>
+<a href="/login">Kirjaudu sisään</a> tai
+<a href="/register">Luo käyttäjätunnus</a>
+<br>
+{% endif %}
+<h1>CafeMeet</h1>
+<b>Maistuisiko lounas, mutta olet lounasseuraa vailla?</b>
+<p>Lisää oma lounasseurailmoituksesi, tai liity jonkun toisen joukkoon!</p>
+
+<h1>Uusimmat ilmoitukset</h1>
+Tulossa pian :)
+
+
+
+{% endblock %}

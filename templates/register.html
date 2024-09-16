@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Rekisteröidy{% endblock %}
+{% block content %}
+<h1>Rekisteröidy käyttäjäksi</h1>
+{% if not session.username %}
+
+{% if error == "username_in_use" %}
+<p>Käyttäjätunnus on jo käytössä</p>
+{% elif error == "username_too_long" %}
+<p>Käyttäjätunnus on liian pitkä</p>
+{% endif %}
+
+<form action="/register" method="POST">
+    <p>Tunnus:<br>
+        <input type="text" name="username">
+    </p>
+    <p>Salasana:<br>
+        <input type="password" name="password">
+    </p>
+    <input type="submit" value="Rekisteröidy">
+</form>
+{% endif %}
+
+{% if session.username %}
+Sinulla on jo käyttäjätunnus!
+{% endif %}
+
+
+{% endblock %}

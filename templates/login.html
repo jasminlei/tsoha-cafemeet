@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+
+<h1>Kirjaudu sisään</h1>
+{% if error == "wrong_username" %}
+<p>Käyttäjää ei löydy!</p>
+{% elif error == "wrong_password" %}
+<p>Väärä salasana!</p>
+{% endif %}
+<form action="/login" method="POST">
+    <p>Tunnus:<br>
+        <input type="text" name="username" required>
+    </p>
+    <p>Salasana:<br>
+        <input type="password" name="password" required>
+    </p>
+    <input type="submit" value="Kirjaudu">
+</form>
+
+{% endblock %}
