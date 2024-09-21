@@ -33,15 +33,11 @@ def new_user():
 
 
 def create_profile(user_id):
-    try:
-        sql_profile = text(
-            "INSERT INTO user_profiles (user_id, favorite_food, bio) VALUES (:user_id, '', '')"
-        )
-        db.session.execute(sql_profile, {"user_id": user_id})
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()
-        print(f"Virhe profiilia luodessa: {e}")
+    sql_profile = text(
+        "INSERT INTO user_profiles (user_id, favorite_food, bio) VALUES (:user_id, '', '')"
+    )
+    db.session.execute(sql_profile, {"user_id": user_id})
+    db.session.commit()
 
 
 def authenticate_user():

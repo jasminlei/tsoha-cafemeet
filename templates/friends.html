@@ -7,7 +7,9 @@
 <p>Kaikki kaverit:</p>
 <ul>
     {% for friend in all_friends %}
-    <li>{{ friend }}</li>
+    <li>
+        <a href="/profile/{{ friend }}">{{ friend }}</a>
+    </li>
     {% endfor %}
 </ul>
 
@@ -15,7 +17,7 @@
 <ul>
     {% for request in friend_requests %}
     <li>
-        {{ request.username }}
+        <a href="/profile/{{ request.username }}">{{ request.username }}</a>
         <form action="/profile/friends" method="POST" style="display:inline;">
             <input type="hidden" name="user_id" value="{{ request.user1 }}">
             <input type="submit" value="Hyväksy">

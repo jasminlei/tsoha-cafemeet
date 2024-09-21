@@ -22,42 +22,28 @@ def profile_content(username):
 def update_favorite_food():
     favorite_food = request.form.get("favorite_food")
     username = session.get("username")
-
-    try:
-        sql = text("""
+    sql = text("""
             UPDATE user_profiles
             SET favorite_food = :favorite_food
             FROM users
             WHERE user_profiles.user_id = users.id
             AND users.username = :username
         """)
-        db.session.execute(sql, {"favorite_food": favorite_food, "username": username})
-        db.session.commit()
-        return True
-
-    except Exception as e:
-        db.session.rollback()
-        print(f"Virhe lempiruokaa päivittäessä: {e}")
-        return False
+    db.session.execute(sql, {"favorite_food": favorite_food, "username": username})
+    db.session.commit()
+    return True
 
 
 def update_bio():
     bio = request.form.get("bio")
     username = session.get("username")
-
-    try:
-        sql = text("""
+    sql = text("""
             UPDATE user_profiles
             SET bio = :bio
             FROM users
             WHERE user_profiles.user_id = users.id
             AND users.username = :username
         """)
-        db.session.execute(sql, {"bio": bio, "username": username})
-        db.session.commit()
-        return True
-
-    except Exception as e:
-        db.session.rollback()
-        print(f"Virhe bioa päivittäessä: {e}")
-        return False
+    db.session.execute(sql, {"bio": bio, "username": username})
+    db.session.commit()
+    return True

@@ -27,6 +27,7 @@ def login():
         if is_authenticated:
             return redirect("/")
         return render_template("login.html", error=error_message)
+
     if request.method == "GET":
         return render_template("login.html")
 
