@@ -6,6 +6,8 @@
     <title>Sovellus - {% block title %}{% endblock %}</title>
     <h1>Sovellus</h1>
     <a href="/">Etusivu</a>
+    <a href="/posts">Lounasilmoitukset</a>
+    <a href="/new_post">Luo ilmoitus</a>
     <hr>
     {% if session.username %}
     <p style="text-align: right;"> Olet kirjautunut nimellä {{ session.username }} <br>

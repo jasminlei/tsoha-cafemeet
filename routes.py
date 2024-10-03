@@ -2,12 +2,15 @@ from app import app
 import users
 import profiles
 import friends
+import lunch
 from flask import render_template, request, redirect, session
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    latest_posts = lunch.latest_lunch_posts()
+    print(latest_posts)
+    return render_template("index.html", latest_posts=latest_posts)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -88,7 +91,6 @@ def edit_profile():
             if favourite_food_updated:
                 profile_data = profiles.profile_content(username)
                 return render_template("edit_profile.html", content=profile_data)
-
         if request.form.get("bio"):
             bio_updated = profiles.update_bio()
             if bio_updated:
@@ -112,3 +114,27 @@ def manage_friends():
         user_id_to_accept = request.form.get("user_id")
         friends.accept_friend_request(username, user_id_to_accept)
         return redirect("/profile/friends")
+
+
+@app.route("/new_post", methods=["GET", "POST"])
+def add_new_post():
+    if "username" in session:
+        username = session["username"]
+        if request.method == "GET":
+            min, max = lunch.max_week()
+            return render_template("new_post.html", min_date=min, max_date=max)
+
+        if request.method == "POST":
+            lunch.create_lunch_post(username)
+            return render_template("new_post.html")
+
+        return render_template("new_post.html")
+
+    error_message = "not_signed_in"
+    return render_template("new_post.html", error=error_message)
+
+
+@app.route("/posts", methods=["GET", "POST"])
+def all_posts():
+    all_posts = lunch.all_lunch_posts()
+    return render_template("posts.html", all_posts=all_posts)

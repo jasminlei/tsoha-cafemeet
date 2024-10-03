@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}Uusi lounasilmoitus{% endblock %}
+{% block content %}
+
+<h1>Luo uusi ilmoitus</h1>
+
+{% if not error %}
+<form action="/new_post" method="POST">
+    <p>Valitse kampus:<br>
+        <select id="campus" name="campus">
+            <option value="">-- Valitse kampus --</option>
+            <option value="Keskusta">Keskusta</option>
+            <option value="Kumpula">Kumpula</option>
+            <option value="Viikki">Viikki</option>
+            <option value="Meilahti">Meilahti</option>
+            <option value="muualla">Jossain muualla</option>
+        </select>
+    </p>
+
+    <p>Ravintola<br>
+        <input type="text" id="restaurant" name="restaurant" placeholder="Esim. Unicafe Exactum">
+    </p>
+
+    <p>Päivämäärä ja aika (pakollinen):<br>
+        <small>Huom! Voit valita päivämäärän maksimissaan viikkoa eteenpäin tästä hetkestä.</small><br>
+        <input type="datetime-local" id="lunch_time" name="lunch_time" min="{{ min_date }}" max="{{ max_date }}"
+            required>
+    </p>
+
+    <p>Viesti:<br>
+        <textarea id="message" name="message" rows="4" placeholder="Kirjoita viestisi tähän..."></textarea>
+    </p>
+
+
+    <p>Näkyvyys (pakollinen):</p>
+    <div>
+
+        <input type="radio" id="visibility_public" name="visibility" value="public" required>
+        <label for="visibility_public">Julkinen</label>
+    </div>
+    <div>
+        <input type="radio" id="visibility_friends" name="visibility" value="friends">
+        <label for="visibility_friends">Vain kavereille</label>
+    </div>
+    <br>
+    <button type="submit">Luo ilmoitus</button>
+</form>
+{% else %}
+
+Kirjaudu sisään lisätäksesi ilmoituksia.
+
+{% endif %}
+
+{% endblock %}

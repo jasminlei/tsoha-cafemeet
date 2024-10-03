@@ -1,20 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Etusivu{% endblock %}
 {% block content %}
-{% if not session.username %}
-<br>
-<a href="/login">Kirjaudu sisään</a> tai
-<a href="/register">Luo käyttäjätunnus</a>
-<br>
-{% endif %}
-<h1>CafeMeet</h1>
-<b>Maistuisiko lounas, mutta olet lounasseuraa vailla?</b>
-<p>Lisää oma lounasseurailmoituksesi, tai liity jonkun toisen joukkoon!</p>
+<h1>Lounasilmoitukset</h1>
 
-<h1>Uusimmat ilmoitukset</h1>
-
-{% if latest_posts %}
-{% for post in latest_posts %}
+{% if all_posts %}
+{% for post in all_posts %}
 <p>
     <a href="/profile/{{ post[0] }}">{{ post[0] }}</a> haluaa lounasseuraa
     {% if post[3] and post[4] %}
@@ -31,7 +21,6 @@
     {% else %}
     <small>Julkinen</small>
     {% endif %}
-    <br><small>Luotu {{ post[7] }}</small>
 <p style="text-align: right;"><small>X kommenttia - Kommentoi </small></p>
 </p>
 {% endfor %}
@@ -39,6 +28,7 @@
 {% else %}
 <p>Ei ilmoituksia vielä!</p>
 {% endif %}
+
 
 
 

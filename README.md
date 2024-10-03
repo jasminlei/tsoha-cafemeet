@@ -21,8 +21,8 @@ Tällä hetkellä toimivat ominaisuudet:
 
 - Sovellukseen voi luoda käyttäjän ja kirjautua sisään 
 - Kirjautunut käyttäjä voi muokata omaa profiiliaan 
-- Kirjautunut käyttäjä voi vierailla muiden käyttäjien profiileissa 
 - Käyttäjä voi lähettää muille käyttäjille kaveripyynnön ja hyväksyä muiden käyttäjien lähettämiä kaveripyyntöjä 
+- Käyttäjä voi luoda omia lounasilmoituksia, ja tarkastella muiden lounasilmoituksia
 
 
 Käynnistysohjeet: 

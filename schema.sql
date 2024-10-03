@@ -22,3 +22,33 @@ CREATE TABLE friends (
     CONSTRAINT unique_users UNIQUE (user1, user2),
     CONSTRAINT no_self_friendship CHECK (user1 <> user2)
 );
+
+CREATE TABLE lunch_posts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    campus TEXT,
+    restaurant TEXT,
+    lunch_time TIMESTAMP NOT NULL,
+    lunch_message TEXT,
+    visibility TEXT CHECK (visibility IN ('public', 'friends')) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
+);
+
+CREATE TABLE lunch_responses (
+    id SERIAL PRIMARY KEY,
+    post_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_post FOREIGN KEY (post_id) REFERENCES lunch_posts(id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+CREATE TABLE private_messages (
+);
+
+CREATE TABLE lunch_comments (
+);
+
