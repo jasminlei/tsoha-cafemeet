@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+<h1>Lounaalle?</h1>
+
+{% if access %}
+
+<p>
+    <a href="/profile/{{ data[0] }}">{{ data[0] }}</a> haluaa lounasseuraa
+    {% if data[3] and data[4] %}
+    paikkaan <b>{{ data[3] }}</b>, {{ data[4] }}
+    {% elif data[3] %}
+    paikkaan <b>{{ data[3] }}</b>
+    {% elif data[4] %}
+    paikkaan {{ data[4] }}
+    {% endif %}<br>
+    aikaan <i>{{ data[2] }}</i> <br>
+    {{ data[5] }}<br>
+    {% if data[6] == 'friends' %}
+    <small>Vain kavereille</small>
+    {% else %}
+    <small>Julkinen</small>
+    {% endif %}
+</p>
+
+<h3>Kommentit:</h3>
+
+{% if comments %}
+{% for comment in comments %}
+<p><strong>{{ comment[0] }}</strong> - {{ comment[2] }}:</p>
+<p>{{ comment[1] }}</p>
+{% endfor %}
+{% else %}
+<p>Ei kommentteja.</p>
+{% endif %}
+
+<h3>Kommentoi:</h3>
+<form action="{{ url_for ('post', id=data[8]) }}" method="POST" id="comment-form">
+    <textarea name="comment" rows="4" cols="50" placeholder="Kirjoita kommentti..." required></textarea><br>
+    <button type="submit">Lähetä kommentti</button>
+</form>
+{% else %}
+
+Sinulla ei ole oikeutta nähdä tätä postausta (postaus ei ole julkinen, tai et ole postaajan kaveri).
+
+{% endif %}
+
+{% endblock %}

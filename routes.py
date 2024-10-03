@@ -3,14 +3,18 @@ import users
 import profiles
 import friends
 import lunch
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, url_for
 
 
 @app.route("/")
 def index():
+    comments_visible = False
     latest_posts = lunch.latest_lunch_posts()
-    print(latest_posts)
-    return render_template("index.html", latest_posts=latest_posts)
+    if "username" in session:
+        comments_visible = True
+    return render_template(
+        "index.html", latest_posts=latest_posts, comments_visible=comments_visible
+    )
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -136,5 +140,35 @@ def add_new_post():
 
 @app.route("/posts", methods=["GET", "POST"])
 def all_posts():
-    all_posts = lunch.all_lunch_posts()
-    return render_template("posts.html", all_posts=all_posts)
+    access = False
+    if "username" in session:
+        all_posts = lunch.all_lunch_posts()
+        access = True
+        return render_template("posts.html", all_posts=all_posts, access=access)
+    return render_template("posts.html", access=access)
+
+
+@app.route("/posts/<int:id>", methods=["GET", "POST"])
+def post(id):
+    if request.method == "GET":
+        access = False
+        if "username" in session:
+            data = lunch.one_post(id)
+            current_user = session["username"]
+            other_user = data[0]
+            comments = lunch.show_comments(id)
+            if (
+                (friends.is_friend(current_user, other_user) and data[6] == "friends")
+                or data[6] == "public"
+                or data[0] == current_user
+            ):
+                access = True
+                return render_template(
+                    "post.html", data=data, access=access, comments=comments
+                )
+        return render_template("post.html", access=access)
+
+    if request.method == "POST":
+        data = lunch.one_post(id)
+        lunch.comment_post(id)
+        return redirect(url_for("post", id=id))

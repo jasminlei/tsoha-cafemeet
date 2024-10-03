@@ -3,6 +3,7 @@
 {% block content %}
 <h1>Lounasilmoitukset</h1>
 
+{% if access %}
 {% if all_posts %}
 {% for post in all_posts %}
 <p>
@@ -21,13 +22,21 @@
     {% else %}
     <small>Julkinen</small>
     {% endif %}
-<p style="text-align: right;"><small>X kommenttia - Kommentoi </small></p>
+<p style="text-align: right;"><small>
+        <a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a></small></p>
+</p>
 </p>
 {% endfor %}
 </ul>
 {% else %}
 <p>Ei ilmoituksia vielä!</p>
 {% endif %}
+
+{% else %}
+Kirjaudu sisään tarkastellaksesi kaikkia ilmoituksia
+
+{% endif %}
+
 
 
 

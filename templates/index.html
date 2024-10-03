@@ -32,8 +32,11 @@
     <small>Julkinen</small>
     {% endif %}
     <br><small>Luotu {{ post[7] }}</small>
-<p style="text-align: right;"><small>X kommenttia - Kommentoi </small></p>
+    {% if comments_visible %}
+<p style="text-align: right;"><small>
+        <a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a></small></p>
 </p>
+{% endif %}
 {% endfor %}
 </ul>
 {% else %}

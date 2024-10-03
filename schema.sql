@@ -46,9 +46,4 @@ CREATE TABLE lunch_responses (
 );
 
 
-CREATE TABLE private_messages (
-);
-
-CREATE TABLE lunch_comments (
-);
 
