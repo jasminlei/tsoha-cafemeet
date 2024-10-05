@@ -14,8 +14,8 @@ Tällä hetkellä toimivat ominaisuudet:
 - Etusivulla näytetään kolme uusinta lounasilmoitusta. 
 - Käyttäjä voi kommentoida muiden lounasilmoituksia, ja lukea muiden kommentteja ilmoituksissa. 
 
+
 Keskeneräiset ominaisuudet: 
-- Rekisteröityneet käyttäjät ovat näkyvissä 
 - Käyttäjä voi poistaa ilmoituksensa tai muokata sitä 
 - Käyttäjä voi suodattaa lounasilmoituksia lisäämispäivämäärän tai lounaspäivämäärän perusteella tai valita näkyväksi vain ilmoituksia tietyltä alueelta tai  tietyltä käyttäjältä, tai vain kavereilta. 
 - Käyttäjä näkee omat ilmoituksensa omassa profiilissaan. 
