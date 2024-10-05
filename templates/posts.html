@@ -17,13 +17,13 @@
             {% elif post[4] %}
             paikkaan {{ post[4] }}
             {% endif %}<br>
-            aikaan <b>{{ post[2] }}</b> <br><br>
-            {{ post[5] }}<br>
-            {% if post[6] == 'friends' %}
-            <small>Vain kavereille</small>
-            {% else %}
-            <small>Julkinen</small>
-            {% endif %}
+            aikaan <b>{{ post[2] }}</b> <br>
+        <div class="message-text">{{ post[5] }}</div><br>
+        {% if post[6] == 'friends' %}
+        <small>Vain kavereille</small>
+        {% else %}
+        <small>Julkinen</small>
+        {% endif %}
         </p>
         <p style="text-align: right;">
             <a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a>

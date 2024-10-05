@@ -16,6 +16,10 @@ body {
     white-space: pre-wrap;
 }
 
+.message-text {
+    white-space: pre-wrap;
+}
+
 h1 {
     font-family: "Dancing Script", cursive;
     color: #323232;
@@ -180,4 +184,19 @@ a:visited {
 
 a:hover {
     color: rgba(108, 194, 142);
+}
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-item {
+    width: 20%;
+    text-align: center;
+    margin: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

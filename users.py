@@ -66,3 +66,18 @@ def user_exists(username):
     sql = text("SELECT COUNT(*) FROM users WHERE username = :username")
     result = db.session.execute(sql, {"username": username})
     return result.scalar() > 0
+
+
+def all_users():
+    sql = text("SELECT username FROM users")
+    result = db.session.execute(sql)
+    users = result.fetchall()
+    if not users:
+        return None
+    return [user[0] for user in users]
+
+
+def count_users():
+    sql = text("SELECT COUNT(*) FROM users")
+    result = db.session.execute(sql)
+    return result.scalar()

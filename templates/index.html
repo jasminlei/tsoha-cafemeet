@@ -28,7 +28,19 @@
         </div>
 
         <div class="content">
-            Coming soon :-)
+            {% if users %}
+            <p>Yhteensä {{ user_count }} käyttäjää.</p>
+            <div class="user-list">
+
+                {% for user in users %}
+                <div class="user-item">
+                    <a href="/profile/{{ user }}">{{ user }}</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p style="text-align: center;">Ei vielä käyttäjiä</p>
+            {% endif %}
         </div>
 
     </div>
@@ -50,14 +62,14 @@
                 {% elif post[4] %}
                 paikkaan {{ post[4] }}
                 {% endif %}<br>
-                aikaan <b>{{ post[2] }}</b> <br><br>
-                {{ post[5] }}<br><br>
-                {% if post[6] == 'friends' %}
-                <small>Vain kavereille</small>
-                {% else %}
-                <small>Julkinen</small>
-                {% endif %}
-                <br><small>Luotu {{ post[7] }}</small>
+                aikaan <b>{{ post[2] }}</b> <br>
+            <div class="message-text">{{ post[5] }}</div><br><br>
+            {% if post[6] == 'friends' %}
+            <small>Vain kavereille</small>
+            {% else %}
+            <small>Julkinen</small>
+            {% endif %}
+            <br><small>Luotu {{ post[7] }}</small>
             </p>
             {% if comments_visible %}
             <p style="text-align: right;">

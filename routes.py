@@ -12,8 +12,14 @@ def index():
     latest_posts = lunch.latest_lunch_posts()
     if "username" in session:
         comments_visible = True
+    all_users = users.all_users()
+    user_count = users.count_users()
     return render_template(
-        "index.html", latest_posts=latest_posts, comments_visible=comments_visible
+        "index.html",
+        latest_posts=latest_posts,
+        comments_visible=comments_visible,
+        users=all_users,
+        user_count=user_count,
     )
 
 

@@ -18,13 +18,13 @@
                 {% elif data[4] %}
                 paikkaan {{ data[4] }}
                 {% endif %}<br>
-                aikaan <i>{{ data[2] }}</i> <br><br>
-                {{ data[5] }}<br><br>
-                {% if data[6] == 'friends' %}
-                <small>Vain kavereille</small>
-                {% else %}
-                <small>Julkinen</small>
-                {% endif %}
+                aikaan <i>{{ data[2] }}</i> <br>
+            <div class="message-text">{{ data[5] }}<br><br></div>
+            {% if data[6] == 'friends' %}
+            <small>Vain kavereille</small>
+            {% else %}
+            <small>Julkinen</small>
+            {% endif %}
             </p>
             {% else %}
             <p>Sinulla ei ole oikeutta nähdä tätä postausta (postaus ei ole julkinen, tai et ole postaajan kaveri).</p>
@@ -38,7 +38,7 @@
             {% if comments %}
             {% for comment in comments %}
             <div class="comment">
-                <p><strong>{{ comment[0] }}</strong> - {{ comment[2] }}:</p>
+                <p><a href="/profile/{{ comment[0] }}">{{ comment[0] }}</a> - {{ comment[2] }}:</p>
                 <p>{{ comment[1] }}</p>
             </div>
             {% endfor %}

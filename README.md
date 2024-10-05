@@ -6,6 +6,7 @@ Sovelluksen tarkoituksena on toimia apuvälineenä lounasseuran löytämiseen. S
 Tällä hetkellä toimivat ominaisuudet: 
 
 - Sovellukseen voi luoda käyttäjän ja kirjautua sisään. 
+- Rekisteröityneet käyttäjät näkyvät etusivulla. 
 - Kirjautunut käyttäjä voi muokata omaa profiiliaan. 
 - Käyttäjä voi lähettää muille käyttäjille kaveripyynnön ja hyväksyä muiden käyttäjien lähettämiä kaveripyyntöjä. 
 - Käyttäjä voi luoda omia lounasilmoituksia, ja tarkastella muiden lounasilmoituksia.
@@ -16,7 +17,9 @@ Tällä hetkellä toimivat ominaisuudet:
 Keskeneräiset ominaisuudet: 
 - Rekisteröityneet käyttäjät ovat näkyvissä 
 - Käyttäjä voi poistaa ilmoituksensa tai muokata sitä 
-- Käyttäjä voi suodattaa lounasilmoituksia lisäämispäivämäärän tai lounaspäivämäärän perusteella tai valita näkyväksi vain ilmoituksia tietyltä alueelta tai  tietyltä käyttäjältä, tai vain kavereilta 
+- Käyttäjä voi suodattaa lounasilmoituksia lisäämispäivämäärän tai lounaspäivämäärän perusteella tai valita näkyväksi vain ilmoituksia tietyltä alueelta tai  tietyltä käyttäjältä, tai vain kavereilta. 
+- Käyttäjä näkee omat ilmoituksensa omassa profiilissaan. 
+- Profiilitekstin ja lounasilmoitusten merkkimäärien rajoitukset. 
 
 
 Käynnistysohjeet: 

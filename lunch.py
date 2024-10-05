@@ -58,9 +58,7 @@ def latest_lunch_posts():
                 lp.created_at DESC 
                 LIMIT 3;
             """)
-        result = db.session.execute(
-            sql, {"current_user_id": current_user_id} if current_user_id else {}
-        )
+        result = db.session.execute(sql, {"current_user_id": current_user_id})
         latest_posts = result.fetchall()
 
         return latest_posts
