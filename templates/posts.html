@@ -1,44 +1,47 @@
 {% extends "layout.html" %}
-{% block title %}Etusivu{% endblock %}
+{% block title %}Lounasilmoitukset{% endblock %}
 {% block content %}
-<h1>Lounasilmoitukset</h1>
+<h2>Lounasilmoitukset</h2>
 
-{% if access %}
-{% if all_posts %}
-{% for post in all_posts %}
-<p>
-    <a href="/profile/{{ post[0] }}">{{ post[0] }}</a> haluaa lounasseuraa
-    {% if post[3] and post[4] %}
-    paikkaan <b>{{ post[3] }}</b>, {{ post[4] }}
-    {% elif post[3] %}
-    paikkaan <b>{{ post[3] }}</b>
-    {% elif post[4] %}
-    paikkaan {{ post[4] }}
-    {% endif %}<br>
-    aikaan <i>{{ post[2] }}</i> <br>
-    {{ post[5] }}<br>
-    {% if post[6] == 'friends' %}
-    <small>Vain kavereille</small>
+<div class="content-wrapper single">
+    {% if access %}
+    {% if all_posts %}
+    {% for post in all_posts %}
+    <div class="content">
+        <p>
+            <a href="/profile/{{ post[0] }}">{{ post[0] }}</a> haluaa lounasseuraa
+            {% if post[3] and post[4] %}
+            paikkaan <b>{{ post[3] }}</b>, {{ post[4] }}
+            {% elif post[3] %}
+            paikkaan <b>{{ post[3] }}</b>
+            {% elif post[4] %}
+            paikkaan {{ post[4] }}
+            {% endif %}<br>
+            aikaan <b>{{ post[2] }}</b> <br><br>
+            {{ post[5] }}<br>
+            {% if post[6] == 'friends' %}
+            <small>Vain kavereille</small>
+            {% else %}
+            <small>Julkinen</small>
+            {% endif %}
+        </p>
+        <p style="text-align: right;">
+            <a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a>
+        </p>
+
+    </div>
+
+    {% endfor %}
     {% else %}
-    <small>Julkinen</small>
+    <div class="content">
+        <p>Ei ilmoituksia vielä!</p>
+    </div>
     {% endif %}
-<p style="text-align: right;"><small>
-        <a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a></small></p>
-</p>
-</p>
-{% endfor %}
-</ul>
-{% else %}
-<p>Ei ilmoituksia vielä!</p>
-{% endif %}
-
-{% else %}
-Kirjaudu sisään tarkastellaksesi kaikkia ilmoituksia
-
-{% endif %}
-
-
-
-
+    {% else %}
+    <div class="content">
+        <p>Kirjaudu sisään tarkastellaksesi kaikkia ilmoituksia.</p>
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}

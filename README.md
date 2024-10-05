@@ -2,27 +2,21 @@ Lounasseurasovellus
 
 Sovelluksen tarkoituksena on toimia apuvälineenä lounasseuran löytämiseen. Sen avulla käyttäjät voivat helposti tarkistaa, milloin heidän kaverinsa ovat saatavilla lounaalle, tai tutustua uusiin ihmisiin yhteisen lounaan merkeissä.  
 
-Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-
-Käyttäjä voi lisätä toisia käyttäjiä kaveriksi.
-
-Käyttäjä voi lisätä julkisen ilmoituksen, tai ilmoituksen joka näkyy vain kavereille. Ilmoitukseen voi valita haluamansa Unicafen tai kampuksen sekä kellonajan.
-
-Käyttäjä voi poistaa ilmoituksensa tai muokata sitä.
-
-Käyttäjä voi hakea muiden ilmoituksia tietyn lounasravintolan, kampuksen tai kellonajan perusteella.
-
-Käyttäjä voi kommentoida muiden ilmoituksia.
-
-Käyttäjä voi lähettää yksityisviestejä toisille käyttäjille. 
-
 
 Tällä hetkellä toimivat ominaisuudet: 
 
-- Sovellukseen voi luoda käyttäjän ja kirjautua sisään 
-- Kirjautunut käyttäjä voi muokata omaa profiiliaan 
-- Käyttäjä voi lähettää muille käyttäjille kaveripyynnön ja hyväksyä muiden käyttäjien lähettämiä kaveripyyntöjä 
-- Käyttäjä voi luoda omia lounasilmoituksia, ja tarkastella muiden lounasilmoituksia
+- Sovellukseen voi luoda käyttäjän ja kirjautua sisään. 
+- Kirjautunut käyttäjä voi muokata omaa profiiliaan. 
+- Käyttäjä voi lähettää muille käyttäjille kaveripyynnön ja hyväksyä muiden käyttäjien lähettämiä kaveripyyntöjä. 
+- Käyttäjä voi luoda omia lounasilmoituksia, ja tarkastella muiden lounasilmoituksia.
+- Ilmoituksen voi asettaa julkiseksi tai näkymään vain kavereille. 
+- Etusivulla näytetään kolme uusinta lounasilmoitusta. 
+- Käyttäjä voi kommentoida muiden lounasilmoituksia, ja lukea muiden kommentteja ilmoituksissa. 
+
+Keskeneräiset ominaisuudet: 
+- Rekisteröityneet käyttäjät ovat näkyvissä 
+- Käyttäjä voi poistaa ilmoituksensa tai muokata sitä 
+- Käyttäjä voi suodattaa lounasilmoituksia lisäämispäivämäärän tai lounaspäivämäärän perusteella tai valita näkyväksi vain ilmoituksia tietyltä alueelta tai  tietyltä käyttäjältä, tai vain kavereilta 
 
 
 Käynnistysohjeet: 

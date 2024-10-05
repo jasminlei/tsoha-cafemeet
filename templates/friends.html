@@ -1,33 +1,37 @@
 {% extends "layout.html" %}
-{% block title %}Muokkaa profiilia{% endblock %}
+{% block title %}Kaverit{% endblock %}
 {% block content %}
 {% if session.username %}
-<h1>Kaverit</h1>
+<div class="content-wrapper single">
+    <div class="content-nobg">
+        <h2>Kaverit</h2>
+    </div>
+    <div class="content">
+        <p>Kaikki kaverit:</p>
+        <ul>
+            {% for friend in all_friends %}
+            <li>
+                <a href="/profile/{{ friend }}">{{ friend }}</a>
+            </li>
+            {% endfor %}
+        </ul>
 
-<p>Kaikki kaverit:</p>
-<ul>
-    {% for friend in all_friends %}
-    <li>
-        <a href="/profile/{{ friend }}">{{ friend }}</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<p>Uusia kaveripyyntöjä:</p>
-<ul>
-    {% for request in friend_requests %}
-    <li>
-        <a href="/profile/{{ request.username }}">{{ request.username }}</a>
-        <form action="/profile/friends" method="POST" style="display:inline;">
-            <input type="hidden" name="user_id" value="{{ request.user1 }}">
-            <input type="submit" value="Hyväksy">
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-
-<a href="/profile/{{ session.username }}">Takaisin profiiliin</a>
-{% else %}
-<p>Kirjaudu sisään tai luo tunnus vieraillaksesi profiileissa.</p>
-{% endif %}
+        <p>Uusia kaveripyyntöjä:</p>
+        {% for request in friend_requests %}
+        <li>
+            <a href="/profile/{{ request.username }}">{{ request.username }}</a>
+            <form action="/profile/friends" method="POST" style="display:inline;">
+                <input type="hidden" name="user_id" value="{{ request.user1 }}">
+                <input type="submit" value="Hyväksy">
+            </form><br>
+        </li>
+        {% endfor %}
+        </ul>
+        <br>
+        <a href="/profile/{{ session.username }}">Takaisin profiiliin</a>
+        {% else %}
+        <p>Kirjaudu sisään tai luo tunnus vieraillaksesi profiileissa.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

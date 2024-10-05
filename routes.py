@@ -130,7 +130,7 @@ def add_new_post():
 
         if request.method == "POST":
             lunch.create_lunch_post(username)
-            return render_template("new_post.html")
+            return redirect("/posts")
 
         return render_template("new_post.html")
 

@@ -1,48 +1,75 @@
 {% extends "layout.html" %}
 {% block title %}Etusivu{% endblock %}
 {% block content %}
-{% if not session.username %}
-<br>
-<a href="/login">Kirjaudu sisään</a> tai
-<a href="/register">Luo käyttäjätunnus</a>
-<br>
-{% endif %}
-<h1>CafeMeet</h1>
-<b>Maistuisiko lounas, mutta olet lounasseuraa vailla?</b>
-<p>Lisää oma lounasseurailmoituksesi, tai liity jonkun toisen joukkoon!</p>
 
-<h1>Uusimmat ilmoitukset</h1>
+<div class="content-wrapper">
+    <div class="left-content">
+        <div class="content-nobg">
+            <h2>Tervetuloa</h2>
+        </div>
+        <div class="content">
+            {% if session.username %}
+            Olet kirjautunut nimellä {{ session.username }} <br>
+            <a href="/logout">Kirjaudu ulos</a> | <a href="/profile/{{ session.username }}">Profiili</a>
+            {% else %}
+            <a href="/login">Kirjaudu sisään</a> tai
+            <a href="/register">Luo käyttäjätunnus</a>
+            <br>
+            {% endif %}
+        </div>
 
-{% if latest_posts %}
-{% for post in latest_posts %}
-<p>
-    <a href="/profile/{{ post[0] }}">{{ post[0] }}</a> haluaa lounasseuraa
-    {% if post[3] and post[4] %}
-    paikkaan <b>{{ post[3] }}</b>, {{ post[4] }}
-    {% elif post[3] %}
-    paikkaan <b>{{ post[3] }}</b>
-    {% elif post[4] %}
-    paikkaan {{ post[4] }}
-    {% endif %}<br>
-    aikaan <i>{{ post[2] }}</i> <br>
-    {{ post[5] }}<br>
-    {% if post[6] == 'friends' %}
-    <small>Vain kavereille</small>
-    {% else %}
-    <small>Julkinen</small>
-    {% endif %}
-    <br><small>Luotu {{ post[7] }}</small>
-    {% if comments_visible %}
-<p style="text-align: right;"><small>
-        <a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a></small></p>
-</p>
-{% endif %}
-{% endfor %}
-</ul>
-{% else %}
-<p>Ei ilmoituksia vielä!</p>
-{% endif %}
+        <div class="content">
+            <b>Maistuisiko lounas, mutta olet lounasseuraa vailla?</b>
+            <p>Lisää oma lounasseurailmoituksesi, tai liity jonkun toisen joukkoon!</p>
+        </div>
 
+        <div class="content-nobg">
+            <h2>Rekisteröityneet käyttäjät</h2>
+        </div>
 
+        <div class="content">
+            Coming soon :-)
+        </div>
+
+    </div>
+
+    <div class="right-content">
+        <div class="content-nobg">
+            <h2>Uusimmat ilmoitukset</h2>
+        </div>
+
+        {% if latest_posts %}
+        {% for post in latest_posts %}
+        <div class="content">
+            <p>
+                <a href="/profile/{{ post[0] }}">{{ post[0] }}</a> haluaa lounasseuraa
+                {% if post[3] and post[4] %}
+                paikkaan <b>{{ post[3] }}</b>, {{ post[4] }}
+                {% elif post[3] %}
+                paikkaan <b>{{ post[3] }}</b>
+                {% elif post[4] %}
+                paikkaan {{ post[4] }}
+                {% endif %}<br>
+                aikaan <b>{{ post[2] }}</b> <br><br>
+                {{ post[5] }}<br><br>
+                {% if post[6] == 'friends' %}
+                <small>Vain kavereille</small>
+                {% else %}
+                <small>Julkinen</small>
+                {% endif %}
+                <br><small>Luotu {{ post[7] }}</small>
+            </p>
+            {% if comments_visible %}
+            <p style="text-align: right;">
+                <small><a href="/posts/{{ post[8] }}"> {{ post[9] }} kommenttia - Kommentoi </a></small>
+            </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>Ei ilmoituksia vielä!</p>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

@@ -56,7 +56,7 @@ def latest_lunch_posts():
                 lp.id, u.username, lp.user_id, lp.lunch_time, lp.restaurant, lp.campus, lp.lunch_message, lp.visibility, lp.created_at
                 ORDER BY 
                 lp.created_at DESC 
-                LIMIT 5;
+                LIMIT 3;
             """)
         result = db.session.execute(
             sql, {"current_user_id": current_user_id} if current_user_id else {}
@@ -72,7 +72,7 @@ def latest_lunch_posts():
             JOIN users u ON lp.user_id = u.id 
             WHERE lp.visibility = 'public'
             ORDER BY lp.lunch_time DESC 
-            LIMIT 5
+            LIMIT 3
         """)
 
     result = db.session.execute(sql)

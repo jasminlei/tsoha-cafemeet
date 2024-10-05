@@ -2,58 +2,64 @@
 {% block title %}Profiili{% endblock %}
 {% block content %}
 
-{% if session.username %}
-{% if not profile_exists %}
-<p>Profiilia ei löydy.</p>
-{% else %}
+<div class="content-wrapper single">
+    {% if session.username %}
+    {% if not profile_exists %}
+    <div class="content">
+        <p>Profiilia ei löydy.</p>
+    </div>
+    {% else %}
 
+    <div class="content-nobg">
+        <h2>{{ profile_data[0] }}</h2>
+    </div>
 
-<h1>{{ profile_data[0] }}</h1>
-<p><b>Lempiruoka:</b><br>
-    {{ profile_data[1] }}</p>
-<p><b>Profiiliteksti:</b> <br>
-    <span class="bio-text">{{ profile_data[2] }}</span>
-</p>
+    <div class="content">
+        <p><b>Lempiruoka:</b><br>
+            {{ profile_data[1] }}</p>
+        <p><b>Profiiliteksti:</b><br>
+            <span class="bio-text">{{ profile_data[2] }}</span>
+        </p>
 
-{% if session.username == profile_data[0] %}
-<a href="/edit_profile">Muokkaa profiilia</a>
+        {% if session.username == profile_data[0] %}
+        <a href="/edit_profile">Muokkaa profiilia</a>
 
-{% if friend_request %}
-<p>Sinulla on uusi kaveripyyntö!</p>
-{% endif %}
-<br>
-<a href="/profile/friends">Kaverit</a>
+        {% if friend_request %}
+        <p>Sinulla on uusi kaveripyyntö!</p>
+        {% endif %}
+        <br>
+        <a href="/profile/friends">Kaverit</a>
 
+        {% else %}
 
+        {% if friend %}
+        <p>Olet ystävä tämän käyttäjän kanssa!</p>
 
+        {% elif pending %}
+        {% if pending_status == 'you_have_already_requested' %}
+        <p>Kaveripyyntösi on odottamassa hyväksyntää!</p>
 
-{% else %}
+        {% elif pending_status == 'this_user_wants_to_be_friend' %}
+        <p>Tämä käyttäjä on lähettänyt sinulle kaveripyynnön!</p>
 
-{% if friend %}
-<p>Olet ystävä tämän käyttäjän kanssa!</p>
+        {% endif %}
 
-{% elif pending %}
-{% if pending_status == 'you_have_already_requested' %}
-<p>Kaveripyyntösi on odottamassa hyväksyntää!</p>
+        {% else %}
+        <form action="/profile/{{ profile_data[0] }}" method="POST">
+            <input type="hidden" name="add_friend" value="true">
+            <input type="submit" value="Lähetä kaveripyyntö">
+        </form>
+        {% endif %}
 
-{% elif pending_status == 'this_user_wants_to_be_friend' %}
-<p>Tämä käyttäjä on lähettänyt sinulle kaveripyynnön!</p>
+        {% endif %}
+    </div>
 
-{% endif %}
-
-{% else %}
-<form action="/profile/{{ profile_data[0] }}" method="POST">
-    <input type="hidden" name="add_friend" value="true">
-    <input type="submit" value="Lähetä kaveripyyntö">
-</form>
-{% endif %}
-
-{% endif %}
-{% endif %}
-
-
-{% else %}
-<p>Kirjaudu sisään tai luo tunnus vieraillaksesi profiileissa.</p>
-{% endif %}
+    {% endif %}
+    {% else %}
+    <div class="content">
+        <p>Kirjaudu sisään tai luo tunnus vieraillaksesi profiileissa.</p>
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}

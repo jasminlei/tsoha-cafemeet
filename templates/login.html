@@ -1,21 +1,29 @@
 {% extends "layout.html" %}
-{% block title %}Etusivu{% endblock %}
+{% block title %}Kirjaudu sisään{% endblock %}
 {% block content %}
+<div class="content-wrapper single">
+    <div class="content-nobg">
+        <h2>Kirjaudu sisään</h2>
+    </div>
+    <div class="content">
+        {% if error == "wrong_username" %}
+        <p>Käyttäjää ei löydy!</p>
+        {% elif error == "wrong_password" %}
+        <p>Väärä salasana!</p>
+        {% endif %}
+        <form action="/login" method="POST">
+            <p>Tunnus:<br>
+                <input type="text" name="username" required>
+            </p>
+            <p>Salasana:<br>
+                <input type="password" name="password" required>
+            </p>
+            <input type="submit" value="Kirjaudu">
+        </form>
 
-<h1>Kirjaudu sisään</h1>
-{% if error == "wrong_username" %}
-<p>Käyttäjää ei löydy!</p>
-{% elif error == "wrong_password" %}
-<p>Väärä salasana!</p>
-{% endif %}
-<form action="/login" method="POST">
-    <p>Tunnus:<br>
-        <input type="text" name="username" required>
-    </p>
-    <p>Salasana:<br>
-        <input type="password" name="password" required>
-    </p>
-    <input type="submit" value="Kirjaudu">
-</form>
+    </div>
+
+
+</div>
 
 {% endblock %}
