@@ -19,9 +19,34 @@ def profile_content(username):
         return "", "", ""
 
 
-def update_favorite_food():
-    favorite_food = request.form.get("favorite_food")
+def update_profile():
     username = session.get("username")
+    favourite_food = request.form.get("favorite_food")
+    bio = request.form.get("bio")
+    fav_food_error = False
+    bio_error = False
+    if len(favourite_food) > 100:
+        fav_food_error = True
+    if len(bio) > 1000:
+        bio_error = True
+    if not fav_food_error and not bio_error:
+        sql = text("""
+                UPDATE user_profiles
+                SET favorite_food = :favorite_food
+                FROM users
+                WHERE user_profiles.user_id = users.id
+                AND users.username = :username
+            """)
+        db.session.execute(sql, {"favorite_food": favourite_food, "username": username})
+        db.session.commit()
+        return True, fav_food_error, bio_error
+    return False, fav_food_error, bio_error
+
+
+def update_favorite_food(favorite_food):
+    username = session.get("username")
+    if len(favorite_food) > 100:
+        return False
     sql = text("""
             UPDATE user_profiles
             SET favorite_food = :favorite_food
@@ -34,9 +59,10 @@ def update_favorite_food():
     return True
 
 
-def update_bio():
-    bio = request.form.get("bio")
+def update_bio(bio):
     username = session.get("username")
+    if len(bio) > 1000:
+        return False
     sql = text("""
             UPDATE user_profiles
             SET bio = :bio

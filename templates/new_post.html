@@ -11,7 +11,7 @@
     </div>
     <div class="content">
         <form action="/new_post" method="POST">
-            <p>Valitse kampus:<br>
+            <p>Valitse kampus (pakollinen):<br>
                 <select id="campus" name="campus">
                     <option value="">-- Valitse kampus --</option>
                     <option value="Keskusta">Keskusta</option>
@@ -22,7 +22,10 @@
                 </select>
             </p>
 
-            <p>Ravintola<br>
+            <p>Ravintola:<br>
+                {% if restaurant_error %}
+                <small><b>Ravintolan nimen pituus max. 70 merkkiä!</b></small>
+                {% endif %}
                 <input type="text" id="restaurant" name="restaurant" placeholder="Esim. Unicafe Exactum">
             </p>
 
@@ -33,6 +36,9 @@
             </p>
 
             <p>Viesti:<br>
+                {% if message_error %}
+                <small><b>Viestin pituus max. 1000 merkkiä!</b></small>
+                {% endif %}
                 <textarea id="message" name="message" rows="4" placeholder="Kirjoita viestisi tähän..."></textarea>
             </p>
 

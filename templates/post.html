@@ -27,9 +27,11 @@
             {% endif %}
             </p>
             {% else %}
-            <p>Sinulla ei ole oikeutta nähdä tätä postausta (postaus ei ole julkinen, tai et ole postaajan kaveri).</p>
+            <p>Sinulla ei ole oikeutta nähdä tätä postausta (postaus ei ole julkinen, et ole postaajan kaveri, tai et
+                ole kirjautunut sisään).</p>
             {% endif %}
         </div>
+        {% if access %}
         <div class="content-nobg">
             <h2>Kommentit:</h2>
         </div>
@@ -45,21 +47,29 @@
             {% else %}
             <p>Ei kommentteja.</p>
             {% endif %}
+            {% endif %}
         </div>
     </div>
 
     <div class="right-content">
+        {% if access %}
         <div class="content-nobg">
             <h2>Kommentoi:</h2>
         </div>
         <div class="content">
 
             <form action="{{ url_for('post', id=data[8]) }}" method="POST" id="comment-form">
+                {% if error %}
+                <small><b>Liian pitkä kommentti! Max 1000 merkkiä.</b></small>
+                {% endif %}
                 <textarea name="comment" rows="4" cols="50" placeholder="Kirjoita kommentti..." required></textarea><br>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <button type="submit">Lähetä kommentti</button>
             </form>
+
+            {% endif %}
         </div>
+
     </div>
 </div>
 {% endblock %}

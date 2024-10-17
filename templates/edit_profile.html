@@ -12,18 +12,20 @@
 
         <form action="/edit_profile" method="POST">
             <p>Lempiruoka:<br>
+                {% if food_error %}
+                <small><b>Liian pitkä lempiruoka! Max. 100 merkkiä.</b></small>
+                {% endif %}
                 <input type="text" name="favorite_food" placeholder="Päivitä lempiruoka" value="{{ content[1] }}">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-            </p><input type="submit" value="Päivitä lempiruoka">
 
-        </form>
-
-        <form action="/edit_profile" method="POST">
             <p>Profiiliteksti:<br>
+                {% if bio_error %}
+                <small><b>Liian pitkä profiiliteksti! Max. 1000 merkkiä.</b></small>
+                {% endif %}
                 <textarea name="bio" rows="10" cols="50">{{content[2]}}</textarea>
             </p>
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-            <input type="submit" value="Päivitä bio">
+            </p><input type="submit" value="Päivitä profiili">
+
         </form>
         <br>
         <a href="/profile/{{ session.username }}">Takaisin profiiliin</a>

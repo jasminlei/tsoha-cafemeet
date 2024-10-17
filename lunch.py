@@ -13,28 +13,39 @@ def create_lunch_post(username):
     message = request.form.get("message")
     visibility = request.form.get("visibility")
 
+    message_error = False
+    restaurant_error = False
+
+    if len(message) > 1000:
+        message_error = True
+    if len(restaurant) > 70:
+        restaurant_error = True
+
     lunch_time = datetime.strptime(lunch_time, "%Y-%m-%dT%H:%M")
 
-    sql = text("""
-        INSERT INTO lunch_posts (user_id, campus, restaurant, lunch_time, lunch_message, visibility)
-        VALUES (:user_id, :campus, :restaurant, :lunch_time, :message, :visibility)
-        """)
+    if not restaurant_error and not message_error:
+        sql = text("""
+            INSERT INTO lunch_posts (user_id, campus, restaurant, lunch_time, lunch_message, visibility)
+            VALUES (:user_id, :campus, :restaurant, :lunch_time, :message, :visibility)
+            """)
 
-    db.session.execute(
-        sql,
-        {
-            "user_id": user_id,
-            "campus": campus,
-            "restaurant": restaurant,
-            "lunch_time": lunch_time,
-            "message": message,
-            "visibility": visibility,
-        },
-    )
+        db.session.execute(
+            sql,
+            {
+                "user_id": user_id,
+                "campus": campus,
+                "restaurant": restaurant,
+                "lunch_time": lunch_time,
+                "message": message,
+                "visibility": visibility,
+            },
+        )
 
-    db.session.commit()
+        db.session.commit()
 
-    return None
+        return True, restaurant_error, message_error
+
+    return False, restaurant_error, message_error
 
 
 def latest_lunch_posts():
@@ -119,6 +130,8 @@ def one_post(id):
 
 def comment_post(post_id):
     comment = request.form.get("comment")
+    if len(comment) > 1000:
+        return "too_long"
     user_id = users.get_user_id(session["username"])
     sql = text("""
             INSERT INTO lunch_responses (post_id, user_id, message)
@@ -157,10 +170,6 @@ def number_of_comments(id):
     count = result.scalar()
 
     return count
-
-
-def edit_post():
-    return None
 
 
 def max_week():

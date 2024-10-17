@@ -104,33 +104,28 @@ def profile(username):
 def edit_profile():
     username = session["username"]
     csrf_token = users.generate_csrf_token()
+    profile_data = profiles.profile_content(username)
+
     if request.method == "GET":
-        profile_data = profiles.profile_content(username)
         return render_template(
             "edit_profile.html", content=profile_data, csrf_token=csrf_token
         )
 
     if request.method == "POST":
-        if request.form.get("favorite_food"):
-            token = request.form.get("csrf_token")
-            if not users.validate_csrf_token(token):
-                abort(403)
-            favourite_food_updated = profiles.update_favorite_food()
-            if favourite_food_updated:
-                profile_data = profiles.profile_content(username)
-                return render_template(
-                    "edit_profile.html", content=profile_data, csrf_token=csrf_token
-                )
-        if request.form.get("bio"):
-            token = request.form.get("csrf_token")
-            if not users.validate_csrf_token(token):
-                abort(403)
-            bio_updated = profiles.update_bio()
-            if bio_updated:
-                profile_data = profiles.profile_content(username)
-                return render_template(
-                    "edit_profile.html", content=profile_data, csrf_token=csrf_token
-                )
+        token = request.form.get("csrf_token")
+        if not users.validate_csrf_token(token):
+            abort(403)
+        updated, food_error, bio_error = profiles.update_profile()
+        if updated:
+            return redirect(url_for("profile", username=username))
+        if bio_error or food_error:
+            return render_template(
+                "edit_profile.html",
+                content=profile_data,
+                csrf_token=csrf_token,
+                bio_error=bio_error,
+                food_error=food_error,
+            )
 
 
 @app.route("/profile/friends", methods=["GET", "POST"])
@@ -164,9 +159,9 @@ def add_new_post():
     if "username" in session:
         username = session["username"]
         csrf_token = users.generate_csrf_token()
+        min, max = lunch.max_week()
 
         if request.method == "GET":
-            min, max = lunch.max_week()
             return render_template(
                 "new_post.html", min_date=min, max_date=max, csrf_token=csrf_token
             )
@@ -175,10 +170,18 @@ def add_new_post():
             token = request.form.get("csrf_token")
             if not users.validate_csrf_token(token):
                 abort(403)
-            lunch.create_lunch_post(username)
-            return redirect("/posts")
+            created, restaurant_error, message_error = lunch.create_lunch_post(username)
+            if created:
+                return redirect("/posts")
 
-        return render_template("new_post.html")
+            return render_template(
+                "new_post.html",
+                min_date=min,
+                max_date=max,
+                csrf_token=csrf_token,
+                message_error=message_error,
+                restaurant_error=restaurant_error,
+            )
 
     error_message = "not_signed_in"
     return render_template("new_post.html", error=error_message)
@@ -197,32 +200,42 @@ def all_posts():
 @app.route("/posts/<int:id>", methods=["GET", "POST"])
 def post(id):
     csrf_token = users.generate_csrf_token()
+    access = False
+    data = lunch.one_post(id)
+    other_user = data[0]
+    comments = lunch.show_comments(id)
+    if "username" in session:
+        current_user = session["username"]
+        if (
+            (friends.is_friend(current_user, other_user) and data[6] == "friends")
+            or data[6] == "public"
+            or data[0] == current_user
+        ):
+            access = True
+
     if request.method == "GET":
-        access = False
-        if "username" in session:
-            data = lunch.one_post(id)
-            current_user = session["username"]
-            other_user = data[0]
-            comments = lunch.show_comments(id)
-            if (
-                (friends.is_friend(current_user, other_user) and data[6] == "friends")
-                or data[6] == "public"
-                or data[0] == current_user
-            ):
-                access = True
-                return render_template(
-                    "post.html",
-                    data=data,
-                    access=access,
-                    comments=comments,
-                    csrf_token=csrf_token,
-                )
-        return render_template("post.html", access=access)
+        return render_template(
+            "post.html",
+            data=data,
+            access=access,
+            comments=comments,
+            csrf_token=csrf_token,
+        )
 
     if request.method == "POST":
         token = request.form.get("csrf_token")
         if not users.validate_csrf_token(token):
             abort(403)
         data = lunch.one_post(id)
-        lunch.comment_post(id)
-        return redirect(url_for("post", id=id))
+        comments = lunch.show_comments(id)
+        error = lunch.comment_post(id)
+        if error == None:
+            return redirect(url_for("post", id=id))
+        return render_template(
+            "post.html",
+            data=data,
+            access=access,
+            comments=comments,
+            csrf_token=csrf_token,
+            error=error,
+        )
