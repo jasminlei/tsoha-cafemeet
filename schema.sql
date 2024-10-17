@@ -32,7 +32,7 @@ CREATE TABLE lunch_posts (
     lunch_message TEXT,
     visibility TEXT CHECK (visibility IN ('public', 'friends')) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE lunch_responses (

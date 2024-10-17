@@ -29,7 +29,7 @@
 
         <div class="content">
             {% if users %}
-            <p>Yhteensä {{ user_count }} käyttäjää.</p>
+            <p style="text-align: center;">Käyttäjiä yhteensä: {{ user_count }}</p>
             <div class="user-list">
 
                 {% for user in users %}
@@ -78,9 +78,12 @@
             {% endif %}
         </div>
         {% endfor %}
-        {% else %}
-        <p>Ei ilmoituksia vielä!</p>
-        {% endif %}
+        <div>
+            {% else %}
+            <p>Ei ilmoituksia vielä!</p>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 

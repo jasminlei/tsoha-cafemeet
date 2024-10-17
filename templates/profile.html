@@ -47,6 +47,7 @@
         {% else %}
         <form action="/profile/{{ profile_data[0] }}" method="POST">
             <input type="hidden" name="add_friend" value="true">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <input type="submit" value="Lähetä kaveripyyntö">
         </form>
         {% endif %}

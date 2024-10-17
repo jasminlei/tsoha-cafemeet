@@ -23,6 +23,7 @@
             <p>Salasana:<br>
                 <input type="password" name="password" required>
             </p>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <input type="submit" value="Rekisteröidy">
         </form>
         {% endif %}

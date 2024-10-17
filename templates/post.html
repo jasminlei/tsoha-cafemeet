@@ -56,6 +56,7 @@
 
             <form action="{{ url_for('post', id=data[8]) }}" method="POST" id="comment-form">
                 <textarea name="comment" rows="4" cols="50" placeholder="Kirjoita kommentti..." required></textarea><br>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <button type="submit">Lähetä kommentti</button>
             </form>
         </div>

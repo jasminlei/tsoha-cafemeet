@@ -22,6 +22,7 @@
             <a href="/profile/{{ request.username }}">{{ request.username }}</a>
             <form action="/profile/friends" method="POST" style="display:inline;">
                 <input type="hidden" name="user_id" value="{{ request.user1 }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <input type="submit" value="Hyväksy">
             </form><br>
         </li>

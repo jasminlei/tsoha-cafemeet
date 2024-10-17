@@ -48,6 +48,7 @@
                 <label for="visibility_friends">Vain kavereille</label>
             </div>
             <br>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <button type="submit">Luo ilmoitus</button>
         </form>
         {% else %}

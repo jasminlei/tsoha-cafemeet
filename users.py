@@ -5,7 +5,7 @@ from db import db
 from app import app
 from os import getenv
 from sqlalchemy.exc import IntegrityError
-
+import secrets
 
 app.secret_key = getenv("SECRET_KEY")
 
@@ -81,3 +81,13 @@ def count_users():
     sql = text("SELECT COUNT(*) FROM users")
     result = db.session.execute(sql)
     return result.scalar()
+
+
+def generate_csrf_token():
+    if "csrf_token" not in session:
+        session["csrf_token"] = secrets.token_hex(16)
+    return session["csrf_token"]
+
+
+def validate_csrf_token(token):
+    return token == session.get("csrf_token")
