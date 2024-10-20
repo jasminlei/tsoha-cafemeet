@@ -32,44 +32,14 @@ def update_profile():
     if not fav_food_error and not bio_error:
         sql = text("""
                 UPDATE user_profiles
-                SET favorite_food = :favorite_food
+                SET favorite_food = :favorite_food, bio = :bio
                 FROM users
                 WHERE user_profiles.user_id = users.id
                 AND users.username = :username
             """)
-        db.session.execute(sql, {"favorite_food": favourite_food, "username": username})
+        db.session.execute(
+            sql, {"favorite_food": favourite_food, "bio": bio, "username": username}
+        )
         db.session.commit()
         return True, fav_food_error, bio_error
     return False, fav_food_error, bio_error
-
-
-def update_favorite_food(favorite_food):
-    username = session.get("username")
-    if len(favorite_food) > 100:
-        return False
-    sql = text("""
-            UPDATE user_profiles
-            SET favorite_food = :favorite_food
-            FROM users
-            WHERE user_profiles.user_id = users.id
-            AND users.username = :username
-        """)
-    db.session.execute(sql, {"favorite_food": favorite_food, "username": username})
-    db.session.commit()
-    return True
-
-
-def update_bio(bio):
-    username = session.get("username")
-    if len(bio) > 1000:
-        return False
-    sql = text("""
-            UPDATE user_profiles
-            SET bio = :bio
-            FROM users
-            WHERE user_profiles.user_id = users.id
-            AND users.username = :username
-        """)
-    db.session.execute(sql, {"bio": bio, "username": username})
-    db.session.commit()
-    return True

@@ -16,7 +16,7 @@ CREATE TABLE friends (
     id SERIAL PRIMARY KEY,
     user1 INTEGER NOT NULL,
     user2 INTEGER NOT NULL,
-    status TEXT CHECK (status IN ('pending', 'accepted', 'rejected', 'deleted')) NOT NULL,
+    status TEXT CHECK (status IN ('pending', 'accepted') NOT NULL,
     CONSTRAINT fk_user1 FOREIGN KEY (user1) REFERENCES users(id),
     CONSTRAINT fk_user2 FOREIGN KEY (user2) REFERENCES users(id),
     CONSTRAINT unique_users UNIQUE (user1, user2),

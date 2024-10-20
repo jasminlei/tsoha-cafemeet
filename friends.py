@@ -120,7 +120,3 @@ def show_friends(user):
             filtered_friends.add(friend2)
 
     return list(filtered_friends)
-
-
-def remove_friend():
-    return None

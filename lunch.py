@@ -74,8 +74,7 @@ def latest_lunch_posts():
 
         return latest_posts
 
-    else:
-        sql = text("""
+    sql = text("""
             SELECT u.username, lp.user_id, to_char(lp.lunch_time, 'DD.MM.YYYY, HH24:MI') AS lunch_time, lp.restaurant, lp.campus, lp.lunch_message, lp.visibility, to_char(lp.created_at, 'DD.MM.YYYY, HH24:MI') AS created_at
             FROM lunch_posts lp
             JOIN users u ON lp.user_id = u.id 
@@ -93,21 +92,21 @@ def all_lunch_posts():
     current_user = session.get("username")
     current_user_id = users.get_user_id(current_user)
     sql = text("""
-                SELECT u.username, lp.user_id, to_char(lp.lunch_time, 'DD.MM.YYYY, HH24:MI') AS lunch_time, lp.restaurant, lp.campus, lp.lunch_message, lp.visibility, to_char(lp.created_at, 'DD.MM.YYYY, HH24:MI') AS created_at, lp.id, COUNT(lr.id) AS comment_count
-                FROM lunch_posts lp
-                JOIN  users u ON lp.user_id = u.id 
-                LEFT JOIN lunch_responses lr ON lp.id = lr.post_id
-                WHERE lp.visibility = 'public' OR lp.user_id = :current_user_id 
-                   OR (lp.visibility = 'friends' AND EXISTS (
-                        SELECT 1 
-                        FROM friends 
-                        WHERE (user1 = :current_user_id AND user2 = lp.user_id AND status = 'accepted') 
-                        OR (user1 = lp.user_id AND user2 = :current_user_id AND status = 'accepted')))
-                GROUP BY 
-                lp.id, u.username, lp.user_id, lp.lunch_time, lp.restaurant, lp.campus, lp.lunch_message, lp.visibility, lp.created_at
-                ORDER BY 
-                lp.created_at DESC 
-                """)
+            SELECT u.username, lp.user_id, to_char(lp.lunch_time, 'DD.MM.YYYY, HH24:MI') AS lunch_time, lp.restaurant, lp.campus, lp.lunch_message, lp.visibility, to_char(lp.created_at, 'DD.MM.YYYY, HH24:MI') AS created_at, lp.id, COUNT(lr.id) AS comment_count
+            FROM lunch_posts lp
+            JOIN  users u ON lp.user_id = u.id 
+            LEFT JOIN lunch_responses lr ON lp.id = lr.post_id
+            WHERE lp.visibility = 'public' OR lp.user_id = :current_user_id 
+                OR (lp.visibility = 'friends' AND EXISTS (
+                    SELECT 1 
+                    FROM friends 
+                    WHERE (user1 = :current_user_id AND user2 = lp.user_id AND status = 'accepted') 
+                    OR (user1 = lp.user_id AND user2 = :current_user_id AND status = 'accepted')))
+            GROUP BY 
+            lp.id, u.username, lp.user_id, lp.lunch_time, lp.restaurant, lp.campus, lp.lunch_message, lp.visibility, lp.created_at
+            ORDER BY 
+            lp.created_at DESC 
+            """)
     result = db.session.execute(sql, {"current_user_id": current_user_id})
     all_posts = result.fetchall()
 
@@ -136,7 +135,7 @@ def comment_post(post_id):
     sql = text("""
             INSERT INTO lunch_responses (post_id, user_id, message)
             VALUES (:post_id, :user_id, :message)
-        """)
+            """)
     db.session.execute(
         sql, {"post_id": post_id, "user_id": user_id, "message": comment}
     )
@@ -146,12 +145,12 @@ def comment_post(post_id):
 
 def show_comments(id):
     sql = text("""
-    SELECT u.username, lr.message, to_char(lr.created_at, 'DD.MM.YYYY, HH24:MI') AS created_at
-    FROM lunch_responses lr
-    JOIN users u ON lr.user_id = u.id
-    WHERE lr.post_id = :post_id
-    ORDER BY lr.created_at ASC
-    """)
+            SELECT u.username, lr.message, to_char(lr.created_at, 'DD.MM.YYYY, HH24:MI') AS created_at
+            FROM lunch_responses lr
+            JOIN users u ON lr.user_id = u.id
+            WHERE lr.post_id = :post_id
+            ORDER BY lr.created_at ASC
+            """)
 
     result = db.session.execute(sql, {"post_id": id})
     comments = result.fetchall()

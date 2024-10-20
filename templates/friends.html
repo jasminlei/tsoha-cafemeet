@@ -17,16 +17,17 @@
         </ul>
 
         <p>Uusia kaveripyyntöjä:</p>
-        {% for request in friend_requests %}
-        <li>
-            <a href="/profile/{{ request.username }}">{{ request.username }}</a>
-            <form action="/profile/friends" method="POST" style="display:inline;">
-                <input type="hidden" name="user_id" value="{{ request.user1 }}">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-                <input type="submit" value="Hyväksy">
-            </form><br>
-        </li>
-        {% endfor %}
+        <ul>
+            {% for request in friend_requests %}
+            <li>
+                <a href="/profile/{{ request.username }}">{{ request.username }}</a>
+                <form action="/profile/friends" method="POST" style="display:inline;">
+                    <input type="hidden" name="user_id" value="{{ request.user1 }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <input type="submit" value="Hyväksy">
+                </form><br>
+            </li>
+            {% endfor %}
         </ul>
         <br>
         <a href="/profile/{{ session.username }}">Takaisin profiiliin</a>

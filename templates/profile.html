@@ -33,14 +33,14 @@
         {% else %}
 
         {% if friend %}
-        <p>Olet ystävä tämän käyttäjän kanssa!</p>
+        <p><small><b>Olet ystävä tämän käyttäjän kanssa!</small></b></p>
 
         {% elif pending %}
         {% if pending_status == 'you_have_already_requested' %}
-        <p>Kaveripyyntösi on odottamassa hyväksyntää!</p>
+        <p><small><b>Kaveripyyntösi on odottamassa hyväksyntää!</small></b></p>
 
         {% elif pending_status == 'this_user_wants_to_be_friend' %}
-        <p>Tämä käyttäjä on lähettänyt sinulle kaveripyynnön!</p>
+        <p><small><b>Tämä käyttäjä on lähettänyt sinulle kaveripyynnön!</b></small></p>
 
         {% endif %}
 
